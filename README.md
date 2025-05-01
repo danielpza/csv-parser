@@ -130,6 +130,21 @@ readCSV('data.csv')
   .catch((err) => console.error(err));
 ```
 
+Or a shorter version in Node.js 22+ using [Array.fromAsync](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fromAsync):
+
+```js
+import fs from 'node:fs';
+import csv from 'csv-parser';
+
+async function readCSV(file) {
+  return Array.fromAsync(fs.createReadStream(file).pipe(csv()));
+}
+
+readCSV('data.csv')
+  .then((results) => console.log(results))
+  .catch((err) => console.error(err));
+```
+
 To specify options for `csv`, pass an object argument to the function. For
 example:
 
