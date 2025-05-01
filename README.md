@@ -92,8 +92,8 @@ Bugs Bunny,22
 It could then be parsed, and results shown like so:
 
 ``` js
-import csv from 'csv-parser';
 import fs from 'node:fs';
+import csv from 'csv-parser';
 
 const results = [];
 
@@ -107,6 +107,27 @@ fs.createReadStream('data.csv')
     //   { NAME: 'Bugs Bunny', AGE: '22' }
     // ]
   });
+```
+
+You can also use async iterators in modern Node.js versions:
+
+```js
+import fs from 'node:fs';
+import csv from 'csv-parser';
+
+async function readCSV(file) {
+  const results = [];
+
+  for await (const data of fs.createReadStream(file).pipe(csv())) {
+    results.push(data);
+  }
+
+  return results;
+}
+
+readCSV('data.csv')
+  .then((results) => console.log(results))
+  .catch((err) => console.error(err));
 ```
 
 To specify options for `csv`, pass an object argument to the function. For
