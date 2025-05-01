@@ -92,8 +92,9 @@ Bugs Bunny,22
 It could then be parsed, and results shown like so:
 
 ``` js
-const csv = require('csv-parser')
-const fs = require('fs')
+import csv from 'csv-parser';
+import fs from 'node:fs';
+
 const results = [];
 
 fs.createReadStream('data.csv')
